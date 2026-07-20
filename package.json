@@ -4,11 +4,9 @@
       "API_PRODUCT_SRV": {
         "kind": "odata-v2",
         "model": "srv/external/API_PRODUCT_SRV",
-        "[development]": {
-          "credentials": {
-            "url": "https://mocked"
-          }
-        }
+      "[development]": {
+    "kind": "mocked"
+  } 
       }
     }
   },
