@@ -21,13 +21,19 @@ annotate CatalogService.Products with @(
     ]
 );
 
-// Włączamy widoczność przycisków akcji dla opinii
 annotate CatalogService.Reviews with @(
     UI.HeaderInfo: {
         TypeName: 'Ocena',
         TypeNamePlural: 'Oceny'
     },
     UI.LineItem: [
+        // Dodajemy PRZYCISK Akcji do paska tabeli
+        {
+            $Type: 'UI.DataFieldForAction',
+            Action: 'CatalogService.addReview',
+            Label: 'Dodaj opinię',
+            Inline: false
+        },
         { $Type: 'UI.DataField', Value: rating, Label: 'Ocena (1-5)' },
         { $Type: 'UI.DataField', Value: comment, Label: 'Komentarz' },
         { $Type: 'UI.DataField', Value: createdAt, Label: 'Data dodania' }

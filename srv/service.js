@@ -5,17 +5,28 @@ module.exports = cds.service.impl(async function () {
 
     const externalService = await cds.connect.to('API_PRODUCT_SRV');
 
+    // 1. Pobieranie produktów z zewnętrznego serwisu
     this.on('READ', Products, async (req) => {
         return externalService.run(req.query);
     });
 
-    // Automatyczne wstawienie klucza obcego przy tworzeniu z poziomu pod-strony
-    this.before('CREATE', Reviews, (req) => {
-        const review = req.data;
+    // 2. Obsługa nowej akcji "addReview"
+    this.on('addReview', Products, async (req) => {
+        const productID = req.params[0].Product || req.params[0];
+        const { rating, comment } = req.data;
 
-        // Walidacja oceny
-        if (review.rating < 1 || review.rating > 5) {
-            req.error(400, 'Ocena musi znajdować się w przedziale od 1 do 5!');
+        // Walidacja
+        if (!rating || rating < 1 || rating > 5) {
+            return req.error(400, 'Ocena musi znajdować się w przedziale od 1 do 5!');
         }
+
+        // Zapis opinii do lokalnej bazy danych
+        const newReview = await INSERT.into(Reviews).entries({
+            productID: productID,
+            rating: Number(rating),
+            comment: comment || ''
+        });
+
+        return newReview;
     });
 });
