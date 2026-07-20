@@ -7,10 +7,10 @@ service CatalogService {
     entity Products as projection on external.A_Product {
         key Product,
             ProductType,
-            reviews : Association to many Reviews on reviews.productID = Product
+            // 1. Zmieniamy 'Association' na 'Composition'
+            reviews : Composition of many Reviews on reviews.productID = Product
     };
 
+    // 2. Encja do zarządzania opiniami
     entity Reviews as projection on my.Reviews;
 }
-
-using from './annotations';
