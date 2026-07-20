@@ -12,3 +12,5 @@ service CatalogService {
 
     entity Reviews as projection on my.Reviews;
 }
+
+using from './annotations';
