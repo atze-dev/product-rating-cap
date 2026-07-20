@@ -3,13 +3,22 @@
     "requires": {
       "API_PRODUCT_SRV": {
         "kind": "odata-v2",
-        "model": "srv/external/API_PRODUCT_SRV"
+        "model": "srv/external/API_PRODUCT_SRV",
+        "[development]": {
+          "credentials": {
+            "url": "https://mocked"
+          }
+        }
       }
     }
   },
   "dependencies": {
+    "@cap-js/hana": "^3",
     "@sap-cloud-sdk/connectivity": "^4",
     "@sap-cloud-sdk/http-client": "^4",
     "@sap-cloud-sdk/resilience": "^4"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^10"
   }
 }
